@@ -11,6 +11,9 @@ import org.springframework.hateoas.VndErrors;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @ControllerAdvice
+/**
+* Customer Error handlers go HERE
+*/
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
     private static Logger LOG = Logger.getLogger(RestResponseEntityExceptionHandler.class);

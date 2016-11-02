@@ -8,6 +8,7 @@ import java.util.Locale;
 @SpringBootApplication
 public class Application {
 
+    /* Starting point of application */
     public static void main(String[] args) {
         Locale.setDefault(Locale.US);
         SpringApplication.run(Application.class, args);

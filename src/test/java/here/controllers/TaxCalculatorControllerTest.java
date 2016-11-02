@@ -61,12 +61,29 @@ public class TaxCalculatorControllerTest {
     }
 
     @Test
-    public void test() throws Exception {
+    public void shouldProcessGoodsArrayTest() throws Exception {
         mockMvc.perform(post("/tax")
                 .content(this.json(new Goods[] {new Goods("description", 1.2, 3, null, null)}))
                 .contentType(contentType))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.salesTax", is("0.35")));
+    }
+
+    @Test
+    public void shouldProcessEmptyArrayTest() throws Exception {
+        mockMvc.perform(post("/tax")
+                .content(this.json(new Goods[] {}))
+                .contentType(contentType))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.salesTax", is("0.00")));
+    }
+
+    @Test
+    public void shouldReturnBadRequestIfNullArrayTest() throws Exception {
+        mockMvc.perform(post("/tax")
+                .content(this.json(null))
+                .contentType(contentType))
+                .andExpect(status().isBadRequest());
     }
 
     protected String json(Object o) throws IOException {

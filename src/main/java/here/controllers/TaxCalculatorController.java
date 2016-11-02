@@ -25,11 +25,12 @@ public class TaxCalculatorController {
     public ResponseEntity<GoodsTaxResponse> calculateTaxes(@RequestBody(required = false) Goods[] goodsArray) {
         LOG.debug("goods:" + Arrays.toString(goodsArray));
 
-        if (goodsArray == null) throw new IllegalArgumentException("goodsArray must not be null!");
+        if (goodsArray == null) {
+            throw new IllegalArgumentException("goodsArray must not be null!");
+        }
 
         double tax = taxCalculationService.calculateTax(goodsArray);
 
-        HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<GoodsTaxResponse>(new GoodsTaxResponse(String.format("%.2f", tax)), headers, HttpStatus.OK);
+        return new ResponseEntity<GoodsTaxResponse>(new GoodsTaxResponse(String.format("%.2f", tax)), new HttpHeaders(), HttpStatus.OK);
     }
 }
