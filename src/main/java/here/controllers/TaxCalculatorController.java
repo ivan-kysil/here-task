@@ -28,7 +28,7 @@ public class TaxCalculatorController {
         double tax = taxCalculationService.calculateTax(goodsArray);
 
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<GoodsTaxResponse>(new GoodsTaxResponse(String.format("%.2f", tax)), headers, HttpStatus.CREATED);
+        return new ResponseEntity<GoodsTaxResponse>(new GoodsTaxResponse(String.format("%.2f", tax)), headers, HttpStatus.OK);
     }
 
     public TaxCalculationService getTaxCalculationService() {
