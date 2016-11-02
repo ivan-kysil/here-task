@@ -1,12 +1,13 @@
 package here.controllers;
 
 import org.apache.log4j.Logger;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.hateoas.VndErrors;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @ControllerAdvice
@@ -14,13 +15,12 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 
     private static Logger LOG = Logger.getLogger(RestResponseEntityExceptionHandler.class);
 
-    @ExceptionHandler(value = { Exception.class })
-    protected ResponseEntity<Object> handleConflict(Exception ex, WebRequest request) {
-        // todo complete some reasonable error handling
+    @ResponseBody
+    @ExceptionHandler(value = { IllegalArgumentException.class })
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    protected VndErrors illegalArgumentExceptionHandler(Exception ex, WebRequest request) {
         LOG.error("", ex);
-        String bodyOfResponse = "This should be application specific";
-        return handleExceptionInternal(ex, bodyOfResponse,
-                new HttpHeaders(), HttpStatus.CONFLICT, request);
+        return new VndErrors("error", ex.getMessage());
     }
 
 }

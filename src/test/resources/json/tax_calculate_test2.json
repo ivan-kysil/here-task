@@ -1,0 +1,26 @@
+[
+  {
+    "description": "Shoes",
+    "count": 2,
+    "unitPrice": 25.5
+  },
+  {
+    "description": "Book: Hemiegway. Islands in the stream",
+    "count": 1,
+    "unitPrice": 10,
+    "category": "BOOKS"
+  },
+  {
+    "description": "Cigarettes",
+    "count": 1,
+    "unitPrice": 20,
+    "imported": true
+  },
+  {
+    "description": "Aspirine",
+    "count": 1,
+    "unitPrice": 69.95,
+    "category": "MEDICAL",
+    "imported": true
+  }
+]

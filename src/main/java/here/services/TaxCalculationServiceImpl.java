@@ -1,14 +1,24 @@
 package here.services;
 
 import here.dto.Goods;
+import here.dto.GoodsCategory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
+import java.util.Optional;
 
 @Component
 public class TaxCalculationServiceImpl implements TaxCalculationService {
 
     private static final float BASE_TAX = 0.1f;
     private static final float IMPORT_TAX = 0.05f;
+
+    @Value("${try.to.infer:false}")
+    private boolean tryToInfer;
+
+    @Autowired
+    private GoodsCategoryInferService inferService;
 
     @Autowired
     private RoundingService roundingService;
@@ -37,13 +47,29 @@ public class TaxCalculationServiceImpl implements TaxCalculationService {
             return goods.getCategory().getTax();
         }
 
+        if (tryToInfer) {
+            Optional<GoodsCategory> inferred = inferService.inferCategory(goods);
+            if (inferred.isPresent()) {
+                return inferred.get().getTax();
+            }
+        }
+
         return BASE_TAX;
     }
 
     private double getImportTax(final Goods goods) {
-        if (goods.isImported() != null && goods.isImported()) {
+        if (goods.isImported() != null) {
+            if (goods.isImported()) {
+                return IMPORT_TAX;
+            } else {
+                return 0;
+            }
+        }
+
+        if (tryToInfer && inferService.inferIfImported(goods)) {
             return IMPORT_TAX;
         }
+
         return 0;
     }
 
