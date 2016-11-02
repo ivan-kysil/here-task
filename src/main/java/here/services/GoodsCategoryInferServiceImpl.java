@@ -11,6 +11,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @Component
+@Deprecated
 public class GoodsCategoryInferServiceImpl implements GoodsCategoryInferService {
 
     Set<String> MEDICAL_CATEGORY_WORDS = new HashSet<>(Arrays.asList("drug pills".split("\\s+")));
