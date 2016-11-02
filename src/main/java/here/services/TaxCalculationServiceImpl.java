@@ -17,6 +17,10 @@ public class TaxCalculationServiceImpl implements TaxCalculationService {
     public double calculateTax(Goods[] goodsArr) {
         double totalTax = 0;
 
+        if (goodsArr == null || goodsArr.length == 0) {
+            return 0;
+        }
+
         for (Goods goods: goodsArr) {
             totalTax += getTotalTax(goods) * goods.getTotalPrice();
         }

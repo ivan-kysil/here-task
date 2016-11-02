@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
+
 
 @RestController
 public class TaxCalculatorController {
@@ -21,10 +23,7 @@ public class TaxCalculatorController {
 
     @PostMapping(path = "/tax", produces = "application/json", consumes = "application/json")
     public ResponseEntity<GoodsTaxResponse> calculateTaxes(@RequestBody Goods[] goodsArray) {
-
-        for (Goods goods: goodsArray) {
-            LOG.info("goods:" + goods);
-        }
+        LOG.debug("goods:" + Arrays.toString(goodsArray));
 
         double tax = taxCalculationService.calculateTax(goodsArray);
 
