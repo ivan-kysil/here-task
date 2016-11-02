@@ -1,12 +1,12 @@
-package here.services;
+package here.services.impl;
 
 import here.dto.Goods;
-import here.dto.GoodsCategory;
+import here.services.GoodsCategoryGuessService;
+import here.services.RoundingService;
+import here.services.TaxCalculationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.util.Optional;
 
 @Component
 public class TaxCalculationServiceImpl implements TaxCalculationService {
@@ -14,11 +14,8 @@ public class TaxCalculationServiceImpl implements TaxCalculationService {
     private static final float BASE_TAX = 0.1f;
     private static final float IMPORT_TAX = 0.05f;
 
-    @Value("${try.to.infer:false}")
-    private boolean tryToInfer;
-
     @Autowired
-    private GoodsCategoryInferService inferService;
+    private GoodsCategoryGuessService guessService;
 
     @Autowired
     private RoundingService roundingService;
@@ -43,15 +40,16 @@ public class TaxCalculationServiceImpl implements TaxCalculationService {
     }
 
     private double getBaseTax(final Goods goods) {
-        if (goods.getCategory() != null) {
-            return goods.getCategory().getTax();
+        if (goods.isTaxFree() != null) {
+            if (goods.isTaxFree()) {
+                return 0;
+            } else {
+                return BASE_TAX;
+            }
         }
 
-        if (tryToInfer) {
-            Optional<GoodsCategory> inferred = inferService.inferCategory(goods);
-            if (inferred.isPresent()) {
-                return inferred.get().getTax();
-            }
+        if (guessService.guessIfTaxFree(goods)) {
+            return 0;
         }
 
         return BASE_TAX;
@@ -66,15 +64,11 @@ public class TaxCalculationServiceImpl implements TaxCalculationService {
             }
         }
 
-        if (tryToInfer && inferService.inferIfImported(goods)) {
+        if (guessService.guessIfImported(goods)) {
             return IMPORT_TAX;
         }
 
         return 0;
-    }
-
-    public RoundingService getRoundingService() {
-        return roundingService;
     }
 
     public void setRoundingService(RoundingService roundingService) {

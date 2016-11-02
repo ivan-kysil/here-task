@@ -1,9 +1,9 @@
 package here.dto;
 
-public class GoodsTaxResponse {
+public class TaxResponse {
     private String salesTax;
 
-    public GoodsTaxResponse(String salesTax) {
+    public TaxResponse(String salesTax) {
         this.salesTax = salesTax;
     }
 

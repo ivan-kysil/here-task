@@ -30,7 +30,6 @@ Returns:
 Application has [application.properties](./src/main/resources/application.properties) config file.
 Configurable parameters:
 * *logging.file=here.log* - log file name
-* *try.to.infer=true* - to run application with 'infer' functionality enabled
 
 ### Data Model Examples:
 See json files in [./src/test/resources/json/](./src/test/resources/json/)

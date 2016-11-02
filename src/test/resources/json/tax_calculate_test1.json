@@ -2,13 +2,11 @@
   {
     "description": "Book",
     "count": 1,
-    "category": "BOOKS",
     "unitPrice": 12.49
   },
   {
     "description": "Chocolate Bar",
     "count": 1,
-    "category": "FOOD",
     "unitPrice": 0.85
   },
   {

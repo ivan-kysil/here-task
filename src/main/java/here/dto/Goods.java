@@ -8,7 +8,7 @@ public class Goods {
     private String description;
     private double unitPrice;
     private int count;
-    private GoodsCategory category;
+    private Boolean taxFree;
     private Boolean imported;
 
     public Goods() { }
@@ -17,12 +17,12 @@ public class Goods {
             @JsonProperty(value = "description", required = true) String description,
             @JsonProperty(value = "unitPrice", required = true) double unitPrice,
             @JsonProperty(value = "count", required = true) int count,
-            @JsonProperty(value = "category") GoodsCategory category,
+            @JsonProperty(value = "taxFree")  Boolean taxFree,
             @JsonProperty(value = "imported") Boolean imported) {
         this.description = description;
         this.unitPrice = unitPrice;
         this.count = count;
-        this.category = category;
+        this.taxFree = taxFree;
         this.imported = imported;
     }
 
@@ -50,15 +50,23 @@ public class Goods {
         this.count = count;
     }
 
-    public GoodsCategory getCategory() {
-        return category;
+    public Boolean getTaxFree() {
+        return taxFree;
     }
 
-    public void setCategory(GoodsCategory category) {
-        this.category = category;
+    public Boolean isTaxFree() {
+        return taxFree;
+    }
+
+    public void setTaxFree(Boolean taxFree) {
+        this.taxFree = taxFree;
     }
 
     public Boolean isImported() {
+        return imported;
+    }
+
+    public Boolean getImported() {
         return imported;
     }
 
@@ -76,7 +84,7 @@ public class Goods {
                 "description='" + description + '\'' +
                 ", unitPrice=" + unitPrice +
                 ", count=" + count +
-                ", category=" + category +
+                ", taxFree=" + taxFree +
                 ", imported=" + imported +
                 '}';
     }
