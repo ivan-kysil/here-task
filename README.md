@@ -29,7 +29,7 @@ Returns:
 ### Config file:
 Application has [application.properties](./src/main/resources/application.properties) config file.
 Configurable parameters:
-* *debug=true* - to run with Debug loging level
+* *logging.file=here.log* - log file name
 * *try.to.infer=true* - to run application with 'infer' functionality enabled
 
 ### Data Model Examples:
@@ -38,5 +38,6 @@ See json files in [./src/test/resources/json/](./src/test/resources/json/)
 ### Frameworks/Tools Used:
 * Spring Core/Boot/MVC/Test;
 * JUnit, Mockito;
+* Logback logger
 * Maven;
 * Chrome Postman plugin for REST testing;
