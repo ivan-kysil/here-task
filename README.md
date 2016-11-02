@@ -9,7 +9,7 @@
 2. *java -jar here-task-1.0-SNAPSHOT.jar*
 
 ### Rest API description:
-*"/tax" POST: Accepts array of:
+* **/tax**,  POST: Accepts array of:
 ```javascript
  {
     "description": string, mandatory;
@@ -17,6 +17,12 @@
  	"unitPrice": double, mandatory;
  	"category": string, optinal, one of "FOOD", "BOOKS", "MEDICAL";
  	"imported": boolean, optional
+ }
+```
+Returns:
+```javascript
+ {
+    "salesTax": string;
  }
 ```
 
