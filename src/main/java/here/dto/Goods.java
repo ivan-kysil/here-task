@@ -1,35 +1,53 @@
 package here.dto;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Goods {
 
-    private String desc;
-    private float unitPrice;
+    private String description;
+    private double unitPrice;
+    private int count;
     private GoodsCategory category;
-    private boolean imported;
+    private Boolean imported;
 
     public Goods() { }
 
-    public Goods(String desc, float unitPrice, GoodsCategory category, boolean imported) {
-        this.desc = desc;
+    @JsonCreator public Goods(
+            @JsonProperty(value = "description", required = true) String description,
+            @JsonProperty(value = "unitPrice", required = true) double unitPrice,
+            @JsonProperty(value = "count", required = true) int count,
+            @JsonProperty(value = "category") GoodsCategory category,
+            @JsonProperty(value = "imported") Boolean imported) {
+        this.description = description;
         this.unitPrice = unitPrice;
+        this.count = count;
         this.category = category;
         this.imported = imported;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public float getUnitPrice() {
+    public double getUnitPrice() {
         return unitPrice;
     }
 
-    public void setUnitPrice(float unitPrice) {
+    public void setUnitPrice(double unitPrice) {
         this.unitPrice = unitPrice;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 
     public GoodsCategory getCategory() {
@@ -40,11 +58,26 @@ public class Goods {
         this.category = category;
     }
 
-    public boolean isImported() {
+    public Boolean isImported() {
         return imported;
     }
 
-    public void setImported(boolean imported) {
+    public void setImported(Boolean imported) {
         this.imported = imported;
+    }
+
+    public double getTotalPrice() {
+        return unitPrice * count;
+    }
+
+    @Override
+    public String toString() {
+        return "Goods{" +
+                "description='" + description + '\'' +
+                ", unitPrice=" + unitPrice +
+                ", count=" + count +
+                ", category=" + category +
+                ", imported=" + imported +
+                '}';
     }
 }
