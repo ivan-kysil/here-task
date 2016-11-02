@@ -1,10 +1,12 @@
 ### Notes:
-1. I extended date model(Json). There could be two additional optional fields("category", "imported"). See [Data Model Examples]
-2. Application is Spring Boot application and packed as a standalone JAR file.
+1. Application is Spring Boot application and packed as a standalone JAR file.
    It runs on port 8080. Example "http://localhost:8080/tax"
-3. Hope I have understood/implemented task correctly. If there are some concerns I could try to rework application.
+2. Hope I have understood/implemented task correctly. If there are some concerns I could try to rework application.
+3. I extended date model(Json). There could be two additional optional fields in Goods("taxFree": boolean, "imported": boolean). This should not affect functionality, rather it provides API to specify explicitly whether goods is tax-free/imported.
 
-### How to run:
+### How to build:
+*mvn clean install*
+### How to run(2 options):
 1. *mvn spring-boot:run*
 2. *java -jar here-task-1.0-SNAPSHOT.jar*
 
@@ -15,8 +17,8 @@
     "description": string, mandatory;
     "count": integer, mandatory;
  	"unitPrice": double, mandatory;
- 	"category": string, optinal, one of "FOOD", "BOOKS", "MEDICAL";
- 	"imported": boolean, optional
+ 	"taxFree": boolean, optinal;
+ 	"imported": boolean, optional;
  }
 ```
 Returns:
@@ -29,7 +31,9 @@ Returns:
 ### Config file:
 Application has [application.properties](./src/main/resources/application.properties) config file.
 Configurable parameters:
-* *logging.file=here.log* - log file name
+* *logging.file=here.log* - log file name;
+* *tax.free.key.words* - space/comma/semi-column separated list of *'key words'* for tax-tree goods lookup;
+* *imported.key.words* - space/comma/semi-column separated list of *'key words'* for imported goods lookup;
 
 ### Data Model Examples:
 See json files in [./src/test/resources/json/](./src/test/resources/json/)
