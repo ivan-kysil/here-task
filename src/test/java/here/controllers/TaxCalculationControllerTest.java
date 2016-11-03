@@ -27,7 +27,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 @SpringBootTest(classes = {Application.class})
 @WebAppConfiguration
 public class TaxCalculationControllerTest {
-    {
+    static {
         Locale.setDefault(Locale.US);
     }
     private static final String TAX_URL = "/tax";
@@ -48,7 +48,7 @@ public class TaxCalculationControllerTest {
     @Test
     public void functionalTest1() throws Exception {
         mockMvc.perform(post(TAX_URL)
-                .content(readDateFromClasspathFile("json/tax_calculate_test1.json"))
+                .content(readDataFromClasspathFile("json/tax_calculate_test1.json"))
                 .contentType(contentType))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.salesTax", is("1.50")));
@@ -57,7 +57,7 @@ public class TaxCalculationControllerTest {
     @Test
     public void functionalTest2() throws Exception {
         mockMvc.perform(post(TAX_URL)
-                .content(readDateFromClasspathFile("json/tax_calculate_test2.json"))
+                .content(readDataFromClasspathFile("json/tax_calculate_test2.json"))
                 .contentType(contentType))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.salesTax", is("7.65")));
@@ -66,7 +66,7 @@ public class TaxCalculationControllerTest {
     @Test
     public void functionalTest3() throws Exception {
         mockMvc.perform(post(TAX_URL)
-                .content(readDateFromClasspathFile("json/tax_calculate_test3.json"))
+                .content(readDataFromClasspathFile("json/tax_calculate_test3.json"))
                 .contentType(contentType))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.salesTax", is("6.70")));
@@ -90,7 +90,7 @@ public class TaxCalculationControllerTest {
                 .andExpect(jsonPath("$.salesTax", is("0.00")));
     }
 
-    private String readDateFromClasspathFile(String fileName) throws IOException {
+    private String readDataFromClasspathFile(String fileName) throws IOException {
         Resource resource = webApplicationContext.getResource("classpath:" + fileName);
         return IOUtils.toString(resource.getInputStream(), Charset.forName("utf8"));
     }

@@ -1,8 +1,7 @@
 ### Notes:
 1. Application is Spring Boot application and packed as a standalone JAR file.
    It runs on port 8080. Example "http://localhost:8080/tax"
-2. Hope I have understood/implemented task correctly. If there are some concerns I could try to rework application.
-3. I extended date model(Json). There could be two additional optional fields in Goods("taxFree": boolean, "imported": boolean). This should not affect functionality, rather it provides API to specify explicitly whether goods is tax-free/imported.
+2. I extended data model(Json). There could be two additional optional fields in Goods("taxFree": boolean, "imported": boolean). This should not affect functionality, rather it provides API to specify explicitly whether goods is tax-free/imported.
 
 ### How to build:
 *mvn clean install*
